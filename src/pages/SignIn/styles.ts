@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { Platform } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 
@@ -6,7 +7,7 @@ export const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  padding: 0 30px;
+  padding: 0 30px ${Platform.OS === 'ios' ? 40 : 150}px;
 `;
 
 export const Title = styled.Text`

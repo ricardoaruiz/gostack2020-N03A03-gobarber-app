@@ -5,6 +5,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
+import { useNavigation, NavigationContainer } from '@react-navigation/native';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -12,42 +13,46 @@ import logoImg from '../../assets/logo.png';
 
 import * as S from './styles';
 
-const SignIn: React.FC = () => (
-  <>
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      enabled
-    >
-      <ScrollView
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{ flex: 1 }}
+const SignIn: React.FC = () => {
+  const navigation = useNavigation();
+
+  return (
+    <>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        enabled
       >
-        <S.Container>
-          <Image source={logoImg} />
-          <S.Title>Faça o seu logon</S.Title>
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{ flex: 1 }}
+        >
+          <S.Container>
+            <Image source={logoImg} />
+            <S.Title>Faça o seu logon</S.Title>
 
-          <Input name="email" icon="mail" placeholder="E-mail" />
-          <Input name="password" icon="lock" placeholder="Senha" />
+            <Input name="email" icon="mail" placeholder="E-mail" />
+            <Input name="password" icon="lock" placeholder="Senha" />
 
-          <Button onPress={() => console.log('clicado')}>Entrar</Button>
+            <Button onPress={() => console.log('clicado')}>Entrar</Button>
 
-          <S.ForgotButton
-            onPress={() => {
-              console.log('forgot');
-            }}
-          >
-            <S.ForgotText>Esqueci a minha senha</S.ForgotText>
-          </S.ForgotButton>
-        </S.Container>
-      </ScrollView>
-    </KeyboardAvoidingView>
+            <S.ForgotButton
+              onPress={() => {
+                console.log('forgot');
+              }}
+            >
+              <S.ForgotText>Esqueci a minha senha</S.ForgotText>
+            </S.ForgotButton>
+          </S.Container>
+        </ScrollView>
+      </KeyboardAvoidingView>
 
-    <S.CreateAccountButton>
-      <S.CreateAccountIcon name="log-in" size={20} />
-      <S.CreateAccountText>Criar uma conta</S.CreateAccountText>
-    </S.CreateAccountButton>
-  </>
-);
+      <S.CreateAccountButton onPress={() => navigation.navigate('SignUp')}>
+        <S.CreateAccountIcon name="log-in" size={20} />
+        <S.CreateAccountText>Criar uma conta</S.CreateAccountText>
+      </S.CreateAccountButton>
+    </>
+  );
+};
 
 export default SignIn;
